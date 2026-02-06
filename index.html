@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Signals — подключение аккаунта</title>
+  <meta name="description" content="Подключение аккаунта к системе сигналов. Примеры диапазонов результата при разных депозитах. Без гарантий." />
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --card:#111a2e;
+      --card2:#0f172a;
+      --text:#e8eefc;
+      --muted:#a9b6d6;
+      --line:rgba(255,255,255,.08);
+      --accent:#6ee7ff;
+      --accent2:#a78bfa;
+      --ok:#34d399;
+      --warn:#fbbf24;
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 800px at 15% -10%, rgba(110,231,255,.16), transparent 60%),
+                  radial-gradient(1200px 800px at 85% 10%, rgba(167,139,250,.14), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.35;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 64px}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:10px 12px;border:1px solid var(--line);border-radius:999px;
+      background:rgba(17,26,46,.55);backdrop-filter: blur(10px);
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 0 0 4px rgba(110,231,255,.12);
+    }
+    .pill{
+      padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+      background:rgba(15,23,42,.55);color:var(--muted);font-size:13px;
+      display:flex;gap:8px;align-items:center;
+    }
+    .gridHero{
+      margin-top:18px;
+      display:grid;grid-template-columns: 1.25fr .75fr;gap:16px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(17,26,46,.92), rgba(15,23,42,.92));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero{
+      padding:28px 26px;
+      position:relative;
+    }
+    .hero h1{
+      margin:0 0 10px;
+      font-size:34px;
+      letter-spacing:-.02em;
+    }
+    .hero p{margin:0;color:var(--muted);font-size:15px;max-width:62ch}
+    .hero .badges{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:16px
+    }
+    .badge{
+      font-size:13px;color:var(--muted);
+      padding:8px 10px;border:1px solid var(--line);border-radius:999px;
+      background:rgba(11,15,25,.35)
+    }
+    .ctaRow{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{
+      border:0;cursor:pointer;
+      padding:12px 14px;border-radius:14px;
+      font-weight:700;font-size:14px;
+      display:inline-flex;align-items:center;gap:10px;
+      transition:transform .08s ease, opacity .2s ease;
+      user-select:none;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btnPrimary{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#07101b;
+    }
+    .btnGhost{
+      background:rgba(15,23,42,.6);
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+    .side{
+      padding:18px 18px;
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .side h3{margin:2px 0 0;font-size:16px}
+    .side .mini{color:var(--muted);font-size:13px}
+    .steps{
+      display:grid;gap:10px;margin-top:8px
+    }
+    .step{
+      padding:12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(11,15,25,.35);
+      display:flex;gap:10px;align-items:flex-start;
+    }
+    .num{
+      width:28px;height:28px;border-radius:10px;
+      background:rgba(110,231,255,.12);
+      border:1px solid rgba(110,231,255,.25);
+      display:grid;place-items:center;font-weight:800;color:var(--accent);
+      flex:0 0 auto;
+    }
+    .step b{display:block;margin-bottom:3px}
+    .step span{display:block;color:var(--muted);font-size:13px}
+    .section{margin-top:16px}
+    .sectionTitle{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+      margin:18px 2px 10px;
+    }
+    .sectionTitle h2{margin:0;font-size:18px}
+    .sectionTitle .hint{margin:0;color:var(--muted);font-size:13px}
+    .ranges{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap:12px;
+    }
+    .range{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      min-height:108px;
+    }
+    .range .dep{color:var(--muted);font-size:13px}
+    .range .val{font-size:20px;font-weight:850;margin-top:6px}
+    .range .tag{
+      display:inline-flex;margin-top:10px;
+      padding:6px 10px;border-radius:999px;font-size:12px;
+      border:1px solid var(--line);color:var(--muted);
+      background:rgba(11,15,25,.35);
+    }
+
+    .calcGrid{
+      display:grid;grid-template-columns: 1fr 1fr; gap:12px;
+    }
+    .calc{
+      padding:16px 16px;
+    }
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(11,15,25,.35);
+      color:var(--text);
+      outline:none;
+      font-size:15px;
+    }
+    .resultBox{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      display:flex;flex-direction:column;gap:8px;
+      min-height:98px;
+    }
+    .big{font-size:18px;font-weight:850}
+    .muted{color:var(--muted);font-size:13px}
+    .disclaimer{
+      margin-top:12px;
+      padding:12px 14px;border-radius:16px;
+      border:1px dashed rgba(251,191,36,.35);
+      background:rgba(251,191,36,.08);
+      color:#f8e7b0;
+      font-size:13px;
+    }
+    .footer{
+      margin-top:18px;
+      padding:14px 2px;
+      color:var(--muted);
+      font-size:12px;
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+    }
+    .linkish{opacity:.95;text-decoration:underline;text-decoration-color:rgba(255,255,255,.25)}
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      padding:3px 6px;border-radius:8px;border:1px solid var(--line);
+      background:rgba(11,15,25,.35);
+      color:var(--text);
+      font-size:12px;
+    }
+    @media (max-width: 980px){
+      .gridHero{grid-template-columns: 1fr}
+      .ranges{grid-template-columns: repeat(2, minmax(0,1fr))}
+      .calcGrid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><span class="dot"></span> Smart Signals</div>
+      <div class="pill">⚡ Быстрый запуск • ⏱ 2–3 минуты</div>
+    </div>
+
+    <div class="gridHero">
+      <div class="card hero">
+        <h1>Подключение аккаунта к системе</h1>
+        <p>
+          Я подключаю твой аккаунт к системе сигналов. Для активации нужен минимальный депозит —
+          <b>от 3$</b> (можно и больше, вплоть до <b>20$+</b>).
+          Ниже — <b>ориентиры</b> по прошлым результатам участников, это <b>не обещание</b>.
+        </p>
+
+        <div class="badges">
+          <div class="badge">✅ Пошаговые инструкции</div>
+          <div class="badge">✅ Без “гарантий” в тексте</div>
+          <div class="badge">✅ Примеры диапазонов</div>
+          <div class="badge">🔒 Акцент на дисциплину</div>
+        </div>
+
+        <div class="ctaRow">
+          <!-- ВСТАВЬ СЮДА СВОЮ ССЫЛКУ НА БОТА/ЛЕНДИНГ/РЕГИСТРАЦИЮ -->
+          <a class="btn btnPrimary" id="ctaMain" href="https://t.me/your_bot" target="_blank" rel="noopener">
+            🚀 Начать подключение
+          </a>
+          <button class="btn btnGhost" id="copyTextBtn" type="button">📋 Скопировать текст в чат</button>
+        </div>
+
+        <div class="disclaimer" role="note">
+          ⚠️ Важно: цифры — это <b>примерные ориентиры</b> по статистике, а не гарантия.
+          Результат зависит от дисциплины, соблюдения шагов и ситуации в игре. 18+.
+        </div>
+      </div>
+
+      <div class="card side">
+        <h3>Как это работает</h3>
+        <div class="mini">3 коротких шага — и ты в процессе.</div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <b>Пишешь “Готов”</b>
+              <span>Я проверяю, что всё ок и даю инструкцию.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <b>Вносишь депозит</b>
+              <span>Минимум от 3$ (можно 10–20$+ для большего темпа).</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <b>Делаешь шаги</b>
+              <span>Следуешь сигналам и фиксируешь результат.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sectionTitle">
+        <h2>Ориентиры по депозиту</h2>
+        <p class="hint">Диапазоны — пример, не обещание.</p>
+      </div>
+
+      <div class="ranges">
+        <div class="range">
+          <div class="dep">Депозит: 3–4$</div>
+          <div class="val">≈ 90–100$</div>
+          <div class="tag">Стартовый вариант</div>
+        </div>
+        <div class="range">
+          <div class="dep">Депозит: 4–7$</div>
+          <div class="val">≈ 120–140$</div>
+          <div class="tag">Комфортно</div>
+        </div>
+        <div class="range">
+          <div class="dep">Депозит: 8–12$</div>
+          <div class="val">≈ 170–220$</div>
+          <div class="tag">Ускорение</div>
+        </div>
+        <div class="range">
+          <div class="dep">Депозит: 13–20$</div>
+          <div class="val">≈ 250–400$</div>
+          <div class="tag">Агрессивнее</div>
+        </div>
+        <div class="range">
+          <div class="dep">Депозит: 20$+</div>
+          <div class="val">≈ 400–700$</div>
+          <div class="tag">Макс. темп</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sectionTitle">
+        <h2>Калькулятор ориентира</h2>
+        <p class="hint">Показывает “примерный” диапазон по введённой сумме.</p>
+      </div>
+
+      <div class="card calc">
+        <div class="calcGrid">
+          <div>
+            <label for="deposit">Сколько планируешь внести (USD)</label>
+            <input id="deposit" type="number" min="1" step="0.5" value="5" />
+            <div class="muted" style="margin-top:8px;">
+              Подсказка: минимально обычно <span class="kbd">3</span>, можно и <span class="kbd">20+</span>.
+            </div>
+          </div>
+
+          <div class="resultBox" aria-live="polite">
+            <div class="muted">Ориентир по статистике</div>
+            <div class="big" id="calcOut">≈ 120–140$</div>
+            <div class="muted" id="calcNote">Категория: 4–7$</div>
+          </div>
+        </div>
+
+        <div class="disclaimer" style="margin-top:12px;">
+          ⚠️ Это не финансовый совет и не обещание выигрыша. Игра может привести к потерям. Играйте ответственно.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>© <span id="year"></span> Smart Signals • <span class="linkish">Конфиденциальность</span> • <span class="linkish">18+</span></div>
+      <div>Для замены ссылки: открой <span class="kbd">index.html</span> и поменяй <span class="kbd">https://t.me/your_bot</span></div>
+    </div>
+  </div>
+
+  <script>
+    const ranges = [
+      { min: 3,  max: 4,   out: "≈ 90–100$",  label: "3–4$" },
+      { min: 4.01, max: 7, out: "≈ 120–140$", label: "4–7$" },
+      { min: 7.01, max: 12,out: "≈ 170–220$", label: "8–12$" },
+      { min: 12.01, max: 20,out:"≈ 250–400$", label: "13–20$" },
+      { min: 20.01, max: 999999, out:"≈ 400–700$", label: "20$+" }
+    ];
+
+    const depositEl = document.getElementById('deposit');
+    const calcOut = document.getElementById('calcOut');
+    const calcNote = document.getElementById('calcNote');
+    const yearEl = document.getElementById('year');
+    yearEl.textContent = new Date().getFullYear();
+
+    function pickRange(v){
+      if (!Number.isFinite(v) || v <= 0) return { out: "Введите сумму", label: "—" };
+      if (v < 3) return { out: "От 3$ для старта", label: "<3$" };
+      for (const r of ranges){
+        if (v >= r.min && v <= r.max) return r;
+      }
+      return ranges[ranges.length - 1];
+    }
+
+    function updateCalc(){
+      const v = parseFloat(depositEl.value);
+      const r = pickRange(v);
+      calcOut.textContent = r.out;
+      calcNote.textContent = "Категория: " + r.label;
+    }
+
+    depositEl.addEventListener('input', updateCalc);
+    updateCalc();
+
+    // Copy message template
+    const copyBtn = document.getElementById('copyTextBtn');
+    copyBtn.addEventListener('click', async () => {
+      const text =
+`Подключаю твой аккаунт к системе. Для активации нужен депозит (обычно от 3$, можно и 20$+).
+По статистике у участников часто выходит примерно так:
+• 3–4$ → ~90–100$
+• 4–7$ → ~120–140$
+• 8–12$ → ~170–220$
+• 13–20$ → ~250–400$
+• 20$+ → ~400–700$
+Важно: это ориентиры, не гарантия. Результат зависит от дисциплины и соблюдения шагов.`;
+
+      try{
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = "✅ Скопировано";
+        setTimeout(()=> copyBtn.textContent = "📋 Скопировать текст в чат", 1200);
+      }catch(e){
+        alert("Не получилось скопировать. Выдели текст вручную в коде или открой сайт в Chrome.");
+      }
+    });
+  </script>
+</body>
+</html>
