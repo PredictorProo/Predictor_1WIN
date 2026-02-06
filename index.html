@@ -4,17 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Deposit Activation</title>
-  <meta name="description" content="Minimal deposit activation page with currency calculator for Nigeria, Kenya, Uganda, Tanzania, Zambia." />
+  <meta name="description" content="Deposit activation page with currency converter for Nigeria, Kenya, Uganda, Tanzania, Zambia." />
   <style>
     :root{
-      --bg:#0b0f19;
-      --card:#0f172a;
-      --line:rgba(255,255,255,.10);
-      --text:#e8eefc;
-      --muted:#a9b6d6;
-      --accent:#6ee7ff;
-      --shadow:0 14px 50px rgba(0,0,0,.45);
-      --radius:18px;
+      --bg:#0b0f19; --card:#0f172a; --line:rgba(255,255,255,.10);
+      --text:#e8eefc; --muted:#a9b6d6; --accent:#6ee7ff;
+      --shadow:0 14px 50px rgba(0,0,0,.45); --radius:18px;
     }
     *{box-sizing:border-box}
     body{
@@ -30,76 +25,44 @@
     .wrap{max-width:720px;margin:0 auto;padding:22px 16px 46px}
     .top{
       display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:10px 12px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:rgba(15,23,42,.55);
-      backdrop-filter: blur(10px);
+      padding:10px 12px;border:1px solid var(--line);border-radius:999px;
+      background:rgba(15,23,42,.55);backdrop-filter: blur(10px);
     }
     .brand{display:flex;align-items:center;gap:10px;font-weight:850}
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background:var(--accent);
-      box-shadow:0 0 0 5px rgba(110,231,255,.12);
-    }
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px rgba(110,231,255,.12)}
     .pill{
-      border:1px solid var(--line);
-      background:rgba(11,15,25,.35);
-      color:var(--muted);
-      padding:8px 10px;border-radius:999px;
-      font-size:13px;
-      user-select:none;
-      white-space:nowrap;
+      border:1px solid var(--line);background:rgba(11,15,25,.35);
+      color:var(--muted);padding:8px 10px;border-radius:999px;font-size:13px;white-space:nowrap;
     }
     .card{
-      margin-top:14px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:rgba(15,23,42,.86);
-      box-shadow:var(--shadow);
-      overflow:hidden;
+      margin-top:14px;border:1px solid var(--line);border-radius:var(--radius);
+      background:rgba(15,23,42,.86);box-shadow:var(--shadow);overflow:hidden;
     }
     .hero{padding:20px 18px}
     h1{margin:0 0 8px;font-size:24px;letter-spacing:-.02em}
     p{margin:0;color:var(--muted);font-size:14px}
     .box{
-      margin-top:14px;
-      padding:14px;
-      border-radius:16px;
-      border:1px solid var(--line);
+      margin-top:14px;padding:14px;border-radius:16px;border:1px solid var(--line);
       background:rgba(11,15,25,.35);
     }
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media (max-width:720px){ .grid2{grid-template-columns:1fr} }
-    label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
-    input{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(11,15,25,.35);
-      color:var(--text);
-      outline:none;
-      font-size:15px;
-    }
-    .small{font-size:12px;color:var(--muted);margin-top:8px}
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .small{font-size:12px;color:var(--muted)}
     .value{font-size:14px;font-weight:850}
     .value code{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      background:rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      padding:2px 6px;border-radius:9px;
-      color:var(--text);
+      background:rgba(255,255,255,.06);border:1px solid var(--line);
+      padding:2px 6px;border-radius:9px;color:var(--text);
     }
-    .rates{
-      margin-top:12px;
-      display:grid;gap:10px;
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    @media (max-width:720px){ .grid2{grid-template-columns:1fr} }
+    label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+    input{
+      width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(11,15,25,.35);color:var(--text);outline:none;font-size:15px;
     }
+    .rates{margin-top:12px;display:grid;gap:10px}
     .rateCard{
-      padding:12px;
-      border-radius:16px;
-      border:1px solid var(--line);
+      padding:12px;border-radius:16px;border:1px solid var(--line);
       background:rgba(15,23,42,.65);
       display:flex;justify-content:space-between;gap:10px;align-items:center;
     }
@@ -107,38 +70,26 @@
     .rateCard span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
     .cta{
       display:flex;gap:10px;flex-wrap:wrap;
-      padding:14px 18px 18px;
-      border-top:1px solid var(--line);
-      background:rgba(11,15,25,.22);
+      padding:14px 18px 18px;border-top:1px solid var(--line);background:rgba(11,15,25,.22);
     }
     .btn{
-      border:0;cursor:pointer;
-      padding:12px 14px;border-radius:14px;
-      font-weight:900;font-size:14px;
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      user-select:none;
-      transition:transform .08s ease, opacity .15s ease;
+      border:0;cursor:pointer;padding:12px 14px;border-radius:14px;
+      font-weight:900;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      user-select:none;transition:transform .08s ease, opacity .15s ease;
     }
     .btn:active{transform:translateY(1px)}
     .primary{
       background:linear-gradient(135deg, var(--accent), #9fe9ff);
-      color:#07101b;
-      flex:1 1 220px;
-      text-decoration:none;
+      color:#07101b;flex:1 1 220px;text-decoration:none;
     }
     .ghost{
-      background:rgba(15,23,42,.6);
-      border:1px solid var(--line);
-      color:var(--text);
-      flex:1 1 180px;
+      background:rgba(15,23,42,.6);border:1px solid var(--line);
+      color:var(--text);flex:1 1 180px;
     }
     .note{
-      margin-top:10px;
-      padding:12px 14px;border-radius:16px;
-      border:1px dashed rgba(255,255,255,.20);
-      background:rgba(255,255,255,.05);
-      color:var(--muted);
-      font-size:12px;
+      margin-top:10px;padding:12px 14px;border-radius:16px;
+      border:1px dashed rgba(255,255,255,.20);background:rgba(255,255,255,.05);
+      color:var(--muted);font-size:12px;
     }
     .ok{color:#a7f3d0}
     .warn{color:#fde68a}
@@ -154,10 +105,7 @@
     <div class="card">
       <div class="hero">
         <h1>Deposit required to activate access</h1>
-        <p>
-          To activate access and start following the steps, a deposit is required.
-          This page does not promise any results — it only explains the activation step.
-        </p>
+        <p>To activate access and start following the steps, a deposit is required. No promises or guarantees.</p>
 
         <div class="box">
           <div class="row">
@@ -175,30 +123,29 @@
             </div>
           </div>
 
-          <div style="margin-top:14px" class="grid2">
+          <div class="grid2">
             <div>
               <label for="usd">Enter deposit amount (USD)</label>
               <input id="usd" type="number" min="1" step="0.5" value="5" />
-              <div class="small">We’ll show the estimated value in local currency (live rates).</div>
+              <div class="small" style="margin-top:8px;">Shows estimated value in local currency (rates update daily).</div>
             </div>
+
             <div>
               <label>Rates status</label>
               <div class="rateCard">
                 <div>
                   <b id="rateStatus" class="warn">Loading rates…</b>
-                  <span id="rateMeta">Source: exchangerate.host</span>
+                  <span id="rateMeta">Source: open.er-api.com</span>
                 </div>
                 <button class="btn ghost" id="refreshBtn" type="button">↻ Refresh</button>
               </div>
-              <div class="small">If rates fail to load, the calculator will show “—”.</div>
+              <div class="small" style="margin-top:8px;">If rates fail, the calculator will show “—”.</div>
             </div>
           </div>
 
           <div class="rates" id="ratesList"></div>
 
-          <div class="note">
-            <span class="warn">18+.</span> Playing can cause financial losses. No guarantees. Please act responsibly.
-          </div>
+          <div class="note"><span class="warn">18+.</span> Playing can cause financial losses. No guarantees.</div>
         </div>
       </div>
 
@@ -219,7 +166,6 @@
       suggestedRangeText: "3–20+ USD",
       promoCode: "—", // e.g. "BYPASS11"
       depositUrl: "https://example.com/deposit",
-      // currencies for: Nigeria, Kenya, Uganda, Tanzania, Zambia
       symbols: [
         { code:"NGN", country:"Nigeria",  label:"Naira (NGN)" },
         { code:"KES", country:"Kenya",    label:"Shilling (KES)" },
@@ -229,7 +175,6 @@
       ]
     };
 
-    // Apply config
     document.getElementById("minDep").textContent = `${CONFIG.minDepositUSD} USD`;
     document.getElementById("depRange").textContent = CONFIG.suggestedRangeText;
     document.getElementById("promo").textContent = CONFIG.promoCode || "—";
@@ -241,11 +186,10 @@
     const metaEl = document.getElementById("rateMeta");
 
     let latestRates = null;
-    let latestDate = null;
+    let latestTimeUTC = null;
 
     function formatNumber(x){
       if (!Number.isFinite(x)) return "—";
-      // keep it readable for large currencies (UGX/TZS/NGN)
       return new Intl.NumberFormat(undefined, { maximumFractionDigits: 0 }).format(x);
     }
 
@@ -273,28 +217,28 @@
     async function loadRates(){
       statusEl.textContent = "Loading rates…";
       statusEl.className = "warn";
-      metaEl.textContent = "Source: exchangerate.host";
-
-      const codes = CONFIG.symbols.map(x => x.code).join(",");
-      const url = `https://api.exchangerate.host/latest?base=USD&symbols=${encodeURIComponent(codes)}`;
+      metaEl.textContent = "Source: open.er-api.com";
 
       try{
-        const r = await fetch(url, { cache: "no-store" });
+        // Open access endpoint (no key)
+        const r = await fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" });
         if (!r.ok) throw new Error("HTTP " + r.status);
         const data = await r.json();
 
-        // expected: { base:"USD", date:"YYYY-MM-DD", rates:{...} }
+        // expected: { result:"success", time_last_update_utc:"...", rates:{...} }
+        if (data.result !== "success") throw new Error("API result not success");
+
         latestRates = data.rates || null;
-        latestDate = data.date || null;
+        latestTimeUTC = data.time_last_update_utc || null;
 
         statusEl.textContent = "Rates loaded";
         statusEl.className = "ok";
-        metaEl.textContent = latestDate ? `Updated: ${latestDate} • Source: exchangerate.host` : "Source: exchangerate.host";
+        metaEl.textContent = latestTimeUTC ? `Updated: ${latestTimeUTC} • Source: open.er-api.com` : "Source: open.er-api.com";
 
         render();
       }catch(err){
         latestRates = null;
-        latestDate = null;
+        latestTimeUTC = null;
         statusEl.textContent = "Rates unavailable";
         statusEl.className = "warn";
         metaEl.textContent = "Check connection / API availability";
@@ -302,7 +246,9 @@
       }
     }
 
-    // Copy message
+    document.getElementById("refreshBtn").addEventListener("click", loadRates);
+    usdEl.addEventListener("input", render);
+
     document.getElementById("copyBtn").addEventListener("click", async ()=>{
       const amountUSD = parseFloat(usdEl.value);
       const lines = CONFIG.symbols.map(s=>{
@@ -315,7 +261,7 @@
 `Deposit is required to activate access.
 Minimum: ${CONFIG.minDepositUSD} USD (suggested: ${CONFIG.suggestedRangeText})
 Promo: ${CONFIG.promoCode || "—"}
-Estimated in local currency (USD ${Number.isFinite(amountUSD)?amountUSD:"—"}):
+Estimated local value (USD ${Number.isFinite(amountUSD)?amountUSD:"—"}):
 ${lines}
 After deposit, message: DONE`;
 
@@ -328,9 +274,6 @@ After deposit, message: DONE`;
         alert("Copy failed. Please copy manually.");
       }
     });
-
-    document.getElementById("refreshBtn").addEventListener("click", loadRates);
-    usdEl.addEventListener("input", render);
 
     loadRates();
   </script>
